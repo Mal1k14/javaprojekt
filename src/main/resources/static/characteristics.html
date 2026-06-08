@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Характеристики - Sports Groups Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+        <h1>🥊 Sports Groups Manager</h1>
+        <ul class="nav-links">
+            <li><a href="/">Главная</a></li>
+            <li><a href="/groups.html">Группы</a></li>
+            <li><a href="/athletes.html">Спортсмены</a></li>
+            <li><a href="/characteristics.html" class="active">Характеристики</a></li>
+            <li><a href="/statistics.html">Статистика</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>Управление характеристиками</h2>
+
+    <!-- Создание характеристики -->
+    <div class="form-section">
+        <h3>Добавить характеристику</h3>
+        <form id="characteristicForm">
+            <div class="form-group">
+                <label for="charName">Название:</label>
+                <input type="text" id="charName" required>
+            </div>
+            <div class="form-group">
+                <label for="charDescription">Описание:</label>
+                <textarea id="charDescription" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="charGroup">Группа:</label>
+                <select id="charGroup" required>
+                    <option value="">Загрузка...</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Добавить характеристику</button>
+        </form>
+    </div>
+
+    <!-- Список характеристик -->
+    <div class="list-section">
+        <h3>Список характеристик</h3>
+        <button onclick="loadCharacteristics()" class="btn">Обновить</button>
+        <div id="characteristicsList" class="cards-grid"></div>
+    </div>
+
+    <!-- НОВАЯ СЕКЦИЯ: Добавление значений характеристик спортсменам -->
+    <div class="form-section">
+        <h3>Добавить значение характеристики спортсмену</h3>
+        <form id="athleteCharForm">
+            <div class="form-group">
+                <label for="acAthlete">Спортсмен:</label>
+                <select id="acAthlete" required>
+                    <option value="">Загрузка...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="acCharacteristic">Характеристика:</label>
+                <select id="acCharacteristic" required>
+                    <option value="">Загрузка...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="acValue">Значение (0-100):</label>
+                <input type="number" id="acValue" min="0" max="100" required>
+            </div>
+            <button type="submit" class="btn">Добавить значение</button>
+        </form>
+    </div>
+
+    <!-- Список значений характеристик -->
+    <div class="list-section">
+        <h3>Значения характеристик спортсменов</h3>
+        <button onclick="loadAthleteCharacteristics()" class="btn">Обновить</button>
+        <div id="athleteCharacteristicsList" class="cards-grid"></div>
+    </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/characteristics.js"></script>
+</body>
+</html>

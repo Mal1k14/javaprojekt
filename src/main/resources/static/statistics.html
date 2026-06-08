@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика - Sports Groups Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+        <h1>🥊 Sports Groups Manager</h1>
+        <ul class="nav-links">
+            <li><a href="/">Главная</a></li>
+            <li><a href="/groups.html">Группы</a></li>
+            <li><a href="/athletes.html">Спортсмены</a></li>
+            <li><a href="/characteristics.html">Характеристики</a></li>
+            <li><a href="/statistics.html" class="active">Статистика</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>📈 Статистика и аналитика</h2>
+
+    <div class="form-group">
+        <label for="groupSelect">Выберите группу для анализа:</label>
+        <select id="groupSelect" class="form-control">
+            <option value="">Загрузка...</option>
+        </select>
+    </div>
+
+    <div id="statsContent" style="display: none;">
+        <div class="chart-container">
+            <h3>Средние показатели группы</h3>
+            <canvas id="groupRadarChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Сравнение спортсменов</h3>
+            <canvas id="athletesComparisonChart"></canvas>
+        </div>
+
+        <div class="stats-table">
+            <h3>Детальная статистика</h3>
+            <table id="statsTable">
+                <thead>
+                <tr>
+                    <th>Спортсмен</th>
+                    <th>Характеристика</th>
+                    <th>Значение</th>
+                    <th>Процент</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ВАЖНО: Сначала api.js, потом charts.js, потом statistics.js -->
+<script src="/js/api.js"></script>
+<script src="/js/charts.js"></script>
+<script src="/js/statistics.js"></script>
+</body>
+</html>

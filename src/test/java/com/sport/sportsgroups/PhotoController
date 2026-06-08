@@ -1,0 +1,78 @@
+package com.sport.sportsgroups;
+
+import com.sport.sportsgroups.controller.PhotoController;
+import com.sport.sportsgroups.entity.Photo;
+import com.sport.sportsgroups.repository.PhotoRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+class PhotoControllerTest {
+
+    @Mock
+    private PhotoRepository repository;
+
+    @InjectMocks
+    private PhotoController controller;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testGetAll() {
+        Photo photo = new Photo();
+        photo.setId(1L);
+        photo.setFileName("test.jpg");
+
+        when(repository.findAll()).thenReturn(Arrays.asList(photo));
+
+        List<Photo> result = controller.getAll();
+
+        assertEquals(1, result.size());
+        assertEquals("test.jpg", result.get(0).getFileName());
+    }
+
+    @Test
+    void testGetById() {
+        Photo photo = new Photo();
+        photo.setId(1L);
+        photo.setFileName("test.jpg");
+
+        when(repository.findById(1L)).thenReturn(Optional.of(photo));
+
+        Photo result = controller.getById(1L);
+
+        assertNotNull(result);
+        assertEquals("test.jpg", result.getFileName());
+    }
+
+    @Test
+    void testCreate() {
+        Photo photo = new Photo();
+        photo.setFileName("new.jpg");
+        photo.setFilePath("/path/new.jpg");
+
+        when(repository.save(any(Photo.class))).thenReturn(photo);
+
+        Photo result = controller.create(photo);
+
+        assertNotNull(result);
+    }
+
+    @Test
+    void testDelete() {
+        controller.delete(1L);
+        verify(repository, times(1)).deleteById(1L);
+    }
+}

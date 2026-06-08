@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Группы - Sports Groups Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+        <h1>🥊 Sports Groups Manager</h1>
+        <ul class="nav-links">
+            <li><a href="/">Главная</a></li>
+            <li><a href="/groups.html" class="active">Группы</a></li>
+            <li><a href="/athletes.html">Спортсмены</a></li>
+            <li><a href="/characteristics.html">Характеристики</a></li>
+            <li><a href="/statistics.html">Статистика</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>Управление группами</h2>
+
+    <div class="form-section">
+        <h3>Создать новую группу</h3>
+        <form id="groupForm">
+            <div class="form-group">
+                <label for="groupName">Название группы:</label>
+                <input type="text" id="groupName" required>
+            </div>
+            <div class="form-group">
+                <label for="groupDescription">Описание:</label>
+                <textarea id="groupDescription" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn">Создать группу</button>
+        </form>
+    </div>
+
+    <div class="list-section">
+        <h3>Список групп</h3>
+        <button onclick="loadGroups()" class="btn">Обновить</button>
+        <div id="groupsList" class="cards-grid"></div>
+    </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/groups.js"></script>
+</body>
+</html>

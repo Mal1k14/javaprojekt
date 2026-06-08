@@ -1,0 +1,248 @@
+databaseChangeLog:
+  # Таблица ролей
+  - changeSet:
+      id: 1
+      author: malik
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  # Таблица пользователей
+  - changeSet:
+      id: 2
+      author: malik
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+
+  # Таблица спортивных групп
+  - changeSet:
+      id: 3
+      author: malik
+      changes:
+        - createTable:
+            tableName: sports_groups
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(1000)
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: owner_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_sports_groups_users
+                    references: users(id)
+
+  # Таблица спортсменов
+  - changeSet:
+      id: 4
+      author: malik
+      changes:
+        - createTable:
+            tableName: athletes
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birth_date
+                  type: date
+              - column:
+                  name: group_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_athletes_sports_groups
+                    references: sports_groups(id)
+
+  # Таблица характеристик
+  - changeSet:
+      id: 5
+      author: malik
+      changes:
+        - createTable:
+            tableName: characteristics
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: group_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_characteristics_sports_groups
+                    references: sports_groups(id)
+
+  # Таблица значений характеристик спортсменов
+  - changeSet:
+      id: 6
+      author: malik
+      changes:
+        - createTable:
+            tableName: athlete_characteristics
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: char_value
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: athlete_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_athlete_characteristics_athletes
+                    references: athletes(id)
+              - column:
+                  name: characteristic_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_athlete_characteristics_characteristics
+                    references: characteristics(id)
+
+  # Таблица фото
+  - changeSet:
+      id: 7
+      author: malik
+      changes:
+        - createTable:
+            tableName: photos
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: file_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_path
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content_type
+                  type: varchar(255)
+              - column:
+                  name: athlete_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_photos_athletes
+                    references: athletes(id)
+
+  # Таблица связи пользователей и ролей (Many-to-Many)
+  - changeSet:
+      id: 8
+      author: malik
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_users
+                    references: users(id)
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_roles
+                    references: roles(id)
+        - addPrimaryKey:
+            tableName: user_roles
+            columnNames: user_id, role_id
+            constraintName: pk_user_roles

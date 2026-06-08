@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спортсмены - Sports Groups Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+        <h1>🥊 Sports Groups Manager</h1>
+        <ul class="nav-links">
+            <li><a href="/">Главная</a></li>
+            <li><a href="/groups.html">Группы</a></li>
+            <li><a href="/athletes.html" class="active">Спортсмены</a></li>
+            <li><a href="/characteristics.html">Характеристики</a></li>
+            <li><a href="/statistics.html">Статистика</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>Управление спортсменами</h2>
+
+    <div class="form-section">
+        <h3>Добавить спортсмена</h3>
+        <form id="athleteForm">
+            <div class="form-group">
+                <label for="athleteName">Имя спортсмена:</label>
+                <input type="text" id="athleteName" required>
+            </div>
+            <div class="form-group">
+                <label for="athleteBirthDate">Дата рождения:</label>
+                <input type="date" id="athleteBirthDate">
+            </div>
+            <div class="form-group">
+                <label for="athleteGroup">Группа:</label>
+                <select id="athleteGroup" required>
+                    <option value="">Загрузка...</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Добавить спортсмена</button>
+        </form>
+    </div>
+
+    <div class="list-section">
+        <h3>Список спортсменов</h3>
+        <button onclick="loadAthletes()" class="btn">Обновить</button>
+        <div id="athletesList" class="cards-grid"></div>
+    </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/athletes.js"></script>
+</body>
+</html>
